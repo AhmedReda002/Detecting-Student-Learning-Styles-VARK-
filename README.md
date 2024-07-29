@@ -44,11 +44,6 @@ Update the `data_dir` path in the code to point to your dataset directory.
 
 ## Usage
 
-### Data Preparation
-
-1. Ensure the dataset is structured as described above.
-2. Update the `data_dir` variable in the code with the path to your dataset.
-
 ### Training the Model
 
 ```python
