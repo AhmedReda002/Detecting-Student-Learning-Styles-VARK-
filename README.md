@@ -1,21 +1,21 @@
 AI Model for Detecting Student Learning Styles (VARK)
 
-Project Overview
+#Project Overview
 The goal of this project is to develop an AI model that can accurately identify students' learning styles based on the VARK model. The model is trained over 20 epochs using a dataset categorized by VARK learning styles to improve its accuracy and reliability.
 
 
-Key Features
+#Key Features
 -Learning Style Detection: Classifies learning styles into Visual, Auditory, Reading/Writing, or Kinesthetic.
 -Video Prediction: Processes video files to display predicted learning styles on video frames.
 -Model Training and Evaluation: Trained using a dataset and evaluated for accuracy.
 
 
-Dataset
+#Dataset
 The project relies on a dataset categorized by VARK learning styles. Ensure that you have the dataset files in the specified directory or update the file paths in the code as needed.
 split the dataset to 4 category its (Visual-Aural-Read/write-Kinesthetic)
 
 
-Prerequisites
+#Prerequisites
 Make sure you have the following software installed:
 
 Python 3.x
@@ -24,7 +24,8 @@ OpenCV
 NumPy
 Matplotlib
 
-3. Training the Model:
+
+#Training the Model:
 
 Data Preparation:
 The script defines paths to the image dataset.
