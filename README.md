@@ -6,14 +6,18 @@ This repository contains a Python-based AI model designed to classify student le
 
 * **Learning Style Classification:** Classifies images into one of the four VARK learning styles.
 * **Data Handling:** Utilizes TensorFlow's `image_dataset_from_directory` for loading and preprocessing image data.
-* **Model Architecture:** Implements a Convolutional Neural Network (CNN) with layers for feature extraction and classification.
+* **Model Architecture:** Implements a Convolutional Neural Network (CNN) with layers for feature extraction and classification. (VGG16)
 * **Training and Evaluation:** Trains the model using early stopping to avoid overfitting and evaluates performance on a validation set.
 * **Visualization:** Plots training and validation accuracy and loss for performance assessment.
 
 ## Libraries Used
 
-* **tensorflow:** For building and training the deep learning model.
-* **matplotlib:** For plotting training history and visualizing performance.
+* **tensorflow:** 
+* **matplotlib:** 
+* **open cv:**
+* **keras:**
+
+  
 
 ## Dataset
 
