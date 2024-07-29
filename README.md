@@ -1,17 +1,19 @@
-AI Model for Detecting Student Learning Styles (VARK)
-Project Overview
+#AI Model for Detecting Student Learning Styles (VARK)
+##Project Overview
 This repository contains a Python-based AI model designed to classify student learning styles according to the VARK model: Visual, Auditory, Read/Write, and Kinesthetic. The model leverages image analysis techniques and deep learning to analyze visual data and predict the corresponding learning style.
 
-Key Features
-Learning Style Classification: Classifies images into one of the four VARK learning styles.
-Data Handling: Utilizes TensorFlow’s image_dataset_from_directory for loading and preprocessing image data.
-Model Architecture: Implements a Convolutional Neural Network (CNN) with layers for feature extraction and classification.
-Training and Evaluation: Trains the model using early stopping to avoid overfitting and evaluates performance on a validation set.
-Visualization: Plots training and validation accuracy and loss for performance assessment.
-Libraries Used
-tensorflow: For building and training the deep learning model.
-matplotlib: For plotting training history and visualizing performance.
-Dataset
+##Key Features
+- `Learning Style Classification`: Classifies images into one of the four VARK learning styles.
+- `Data Handling`: Utilizes TensorFlow’s image_dataset_from_directory for loading and preprocessing image data.
+- `Model Architecture`: Implements a Convolutional Neural Network (CNN) with layers for feature extraction and classification.
+- `Training and Evaluation`: Trains the model using early stopping to avoid overfitting and evaluates performance on a validation set.
+- `Visualization`: Plots training and validation accuracy and loss for performance assessment
+
+##Libraries Used
+- `tensorflow`: For building and training the deep learning model.
+- `matplotlib`: For plotting training history and visualizing performance.
+
+##Dataset
 Ensure your dataset is organized with directories representing each VARK category. For example:
 
 mathematica
