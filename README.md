@@ -1,21 +1,21 @@
 AI Model for Detecting Student Learning Styles (VARK)
 Project Overview
-This repository contains a Python-based AI model designed to classify student learning styles according to the VARK model (Visual, Auditory, Read/Write, Kinesthetic). The model leverages image analysis techniques and deep learning to analyze visual data and predict the corresponding learning style.
+This repository contains a Python-based AI model designed to classify student learning styles according to the VARK model: Visual, Auditory, Read/Write, and Kinesthetic. The model leverages image analysis techniques and deep learning to analyze visual data and predict the corresponding learning style.
 
 Key Features
-Learning Style Classification: Accurately identifies VARK learning styles based on image input.
-Video Processing: Processes video files and provides real-time learning style predictions.
-Model Training: Implements a Convolutional Neural Network (CNN) for training on a labeled image dataset.
-Evaluation: Includes metrics for model performance assessment.
-Prerequisites
-Python 3.x
-TensorFlow
-OpenCV
-NumPy
-Matplotlib
+Learning Style Classification: Classifies images into one of the four VARK learning styles.
+Data Handling: Utilizes TensorFlow’s image_dataset_from_directory for loading and preprocessing image data.
+Model Architecture: Implements a Convolutional Neural Network (CNN) with layers for feature extraction and classification.
+Training and Evaluation: Trains the model using early stopping to avoid overfitting and evaluates performance on a validation set.
+Visualization: Plots training and validation accuracy and loss for performance assessment.
+Libraries Used
+tensorflow: For building and training the deep learning model.
+matplotlib: For plotting training history and visualizing performance.
 Dataset
-The project requires a dataset containing images categorized by VARK learning styles. Please ensure the dataset is structured as follows:
+Ensure your dataset is organized with directories representing each VARK category. For example:
 
+mathematica
+Copy code
 dataset/
   Visual/
     image1.jpg
@@ -33,25 +33,124 @@ dataset/
     image1.jpg
     image2.jpg
     ...
-Usage
-Data Preparation:
-Replace placeholder paths with your dataset directory.
-Ensure the dataset is organized as described above.
-Model Training:
-Run the Python script to train the model.
-The training process involves data loading, model architecture, compilation, and fitting.
-Model Evaluation:
-Evaluate the trained model's performance using provided metrics.
-Video Prediction:
-Provide a video file path as input.
-The script processes the video, predicts learning styles for each frame, and displays results.
-Model Architecture
-The model employs a Convolutional Neural Network (CNN) architecture to extract relevant features from images. The CNN consists of convolutional, pooling, and dense layers, culminating in a softmax output layer for classification.
+Update the data_dir path in the code to point to your dataset directory.
 
+Usage
+Data Preparation
+Ensure the dataset is structured as described above.
+Update the data_dir variable in the code with the path to your dataset.
+Training the Model
+Import Libraries:
+
+python
+Copy code
+import tensorflow as tf
+from tensorflow.keras.preprocessing import image_dataset_from_directory
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
+import matplotlib.pyplot as plt
+Load Dataset:
+
+python
+Copy code
+data_dir = '/path/to/your/dataset'  # Replace with the actual path to your dataset
+
+batch_size = 32
+img_height = 150
+img_width = 150
+
+train_ds = image_dataset_from_directory(
+    data_dir,
+    validation_split=0.2,
+    subset="training",
+    seed=123,
+    image_size=(img_height, img_width),
+    batch_size=batch_size,
+    label_mode='categorical'
+)
+
+val_ds = image_dataset_from_directory(
+    data_dir,
+    validation_split=0.2,
+    subset="validation",
+    seed=123,
+    image_size=(img_height, img_width),
+    batch_size=batch_size,
+    label_mode='categorical'
+)
+Define and Compile the Model:
+
+python
+Copy code
+class_names = train_ds.class_names
+num_classes = len(class_names)
+
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(img_height, img_width, 3)),
+    MaxPooling2D(pool_size=(2, 2)),
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D(pool_size=(2, 2)),
+    Conv2D(128, (3, 3), activation='relu'),
+    MaxPooling2D(pool_size=(2, 2)),
+    Flatten(),
+    Dense(512, activation='relu'),
+    Dropout(0.5),
+    Dense(num_classes, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+Train the Model:
+
+python
+Copy code
+early_stopping_cb = EarlyStopping(patience=5, restore_best_weights=True)
+
+history = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=20,
+    callbacks=[early_stopping_cb]
+)
+Evaluate the Model:
+
+python
+Copy code
+test_loss, test_acc = model.evaluate(val_ds)
+print(f"Test accuracy: {test_acc}")
+Visualize Training Results:
+
+python
+Copy code
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(len(acc))
+
+plt.figure(figsize=(12, 4))
+
+plt.subplot(1, 2, 1)
+plt.plot(epochs, acc, 'r', label='Training accuracy')
+plt.plot(epochs, val_acc, 'b', label='Validation accuracy')
+plt.title('Training and validation accuracy')
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.plot(epochs, loss, 'r', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+
+plt.show()
 Contributions
-Contributions to improve the model's accuracy, efficiency, or functionality are welcome. Potential areas for enhancement include:
+Contributions to enhance the model’s accuracy, efficiency, or functionality are welcome. Potential areas for improvement include:
 
 Expanding the dataset
-Experimenting with different CNN architectures(VGG16)
+Experimenting with different CNN architectures
 Incorporating data augmentation techniques
-Developing a user-friendly interface
+Enhancing model evaluation metrics
+
+
